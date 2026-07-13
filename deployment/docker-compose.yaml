@@ -1,0 +1,18 @@
+
+services:
+  hardhat-node:
+    build: .
+    ports:
+      - "8545:8545"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    networks:
+      - hh-network
+    restart: always
+
+networks:
+  hh-network:
+    driver: bridge
