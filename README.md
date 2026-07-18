@@ -30,10 +30,10 @@ The project is being developed following the requirements of the 42 Tokenizer su
 
 ## Current Status
 - [x] ✅ Project planning completed
-- [ ] 🚧 Smart contract development in progress
+- [x] ✅ Smart contract development in progress
 - [ ] 🚧 Testing in progress
 - [ ] 🚧 Documentation in progress
-- [ ] ⏳ Deployment to Ethereum testnet pending
+- [x] ✅ Deployment to Ethereum testnet pending
 
 ## Project Structure
 
