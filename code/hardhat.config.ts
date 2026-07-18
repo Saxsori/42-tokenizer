@@ -6,14 +6,13 @@ const config: HardhatUserConfig = {
   networks: {
 	sepolia: {
 		url: process.env.SEPOLIA_RPC_URL || "",
-		accounts:
-			process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+		accounts: process.env.PRIVATE_KEY_1 && process.env.PRIVATE_KEY_2 ? [process.env.PRIVATE_KEY_1, process.env.PRIVATE_KEY_2] : [],
 	},
 	// bsc testnet
 	// bscTestnet: {
 	// 	url: process.env.BSC_TESTNET_RPC_URL || "",
 	// 	accounts:
-	// 		process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+	// 		process.env.PRIVATE_KEY_1 !== undefined || process.env.PRIVATE_KEY_2 !== undefined ? [process.env.PRIVATE_KEY_1, process.env.PRIVATE_KEY_2] : [],
 	// },
   },
     etherscan: {
