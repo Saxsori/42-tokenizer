@@ -60,7 +60,7 @@ OpenZeppelin's audited smart contract libraries are used to improve security, re
 Deployment information will be added once the smart contract has been deployed.
 
 - Network: Ethereum Testnet (TBD)
-- Contract Address: Coming Soon
+- Contract Address: 0x8d7d63ab0B9Dbe1fCD6D0b3ae57c96Ea0728C423
 - Block Explorer: Coming Soon
 
 ## Documentation
