@@ -68,9 +68,63 @@ describe("FortyTwoNova: Minting", function () {
 		expect(await token.balanceOf(other.address)).to.equal(34);
 	});
 
+	// A non-owner cannot mint
+	it("A non-owner cannot mint", async function () {
+		const [deployer, other] = await ethers.getSigners();
+		const Factory = await ethers.getContractFactory("FortyTwoNova");
+		const token = await Factory.deploy(8, 42);
+		await token.waitForDeployment();
+
+		await expect(
+			token.connect(other).mint(other.address, 34)
+		).to.be.revertedWithCustomError(token, "OwnableUnauthorizedAccount");
+	});
 });
 
-
-// A non-owner cannot mint
 // Normal transfers work
-// Burning removes tokens from total supply
+describe("FortyTwoNova: Transfers", function () {
+	it("allows normal transfers", async function () {
+		const [deployer, other] = await ethers.getSigners();
+		const Factory = await ethers.getContractFactory("FortyTwoNova");
+		const token = await Factory.deploy(8, 42);
+		await token.waitForDeployment();
+
+		await token.transfer(other.address, 4);
+		expect(await token.balanceOf(deployer.address)).to.equal(4);
+		expect(await token.balanceOf(other.address)).to.equal(4);
+	});	
+});
+
+describe("FortyTwoNova: Burning", function () {
+
+	// Burning removes tokens from Balance
+	it("allows burning of tokens and reduces balance", async function () {
+		const [deployer] = await ethers.getSigners();
+		const Factory = await ethers.getContractFactory("FortyTwoNova");
+		const token = await Factory.deploy(8, 42);
+		await token.waitForDeployment();
+		
+		await token.burn(3);
+		expect(await token.balanceOf(deployer.address)).to.equal(5);
+	});	
+
+	// Burning removes tokens from total supply
+	it("allows burning of tokens and reduces total supply", async function () {
+		const [deployer] = await ethers.getSigners();
+		const Factory = await ethers.getContractFactory("FortyTwoNova");
+		const token = await Factory.deploy(8, 42);
+		await token.waitForDeployment();
+		
+		await token.burn(3);
+		expect(await token.totalSupply()).to.equal(5);
+	});
+	
+	it("does not allow burning more than balance", async function () {
+		const [deployer] = await ethers.getSigners();
+		const Factory = await ethers.getContractFactory("FortyTwoNova");
+		const token = await Factory.deploy(8, 42);
+		await token.waitForDeployment();
+		
+		await expect(token.burn(9)).to.be.revertedWithCustomError(token, "ERC20InsufficientBalance");
+	});
+});

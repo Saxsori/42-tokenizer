@@ -11,3 +11,9 @@ REPORT_GAS=true npx hardhat test
 npx hardhat node
 npx hardhat ignition deploy ./ignition/modules/Lock.ts
 ```
+
+```shell
+docker run --rm -it -v "$PWD":/app -w /app node:20-bullseye npm install
+docker run --rm -it -v "$PWD":/app -w /app node:20-bullseye npx hardhat compile
+docker run --rm -it -v "$PWD":/app -w /app node:20-bullseye npx hardhat test
+```
