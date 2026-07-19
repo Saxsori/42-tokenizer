@@ -119,6 +119,12 @@ Normal users cannot create new tokens.
 
 Ownership can be transferred using the built-in ownership management functions.
 
+This means the owner is not permanent by default — using `transferOwnership()`, 
+the current owner can hand control to a different address, or using 
+`renounceOwnership()`, give up ownership entirely. Once ownership is renounced, 
+no address can call `mint()` again, and the total supply can only ever decrease 
+from that point on (via burning).
+
 ### Maximum supply cap
 
 FT42Nova has a maximum supply limit:
@@ -178,3 +184,9 @@ This script demonstrates how to interact with the deployed FT42Nova smart contra
 |burnFrom() |	Permanently destroy tokens from an approved balance |
 |balanceOf() |	Check the token balance of an address|
 |totalSupply()  |	Check the current token supply|
+
+Note: `scripts/interact.ts` demonstrates `transfer()`, `mint()`, `burn()`, 
+`approve()`, `burnFrom()`, `balanceOf()`, and `totalSupply()` against the live 
+Sepolia deployment. `transferFrom()` is not separately exercised in the demo 
+script, since `burnFrom()` covers the same underlying allowance mechanism — 
+an approved address spending someone else's approved balance.
