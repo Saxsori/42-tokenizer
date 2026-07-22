@@ -6,7 +6,7 @@ const config: HardhatUserConfig = {
   networks: {
 	sepolia: {
 		url: process.env.SEPOLIA_RPC_URL || "",
-		accounts: process.env.PRIVATE_KEY_1 && process.env.PRIVATE_KEY_2 ? [process.env.PRIVATE_KEY_1, process.env.PRIVATE_KEY_2] : [],
+		accounts: process.env.PRIVATE_KEY_1 && process.env.PRIVATE_KEY_2 && process.env.PRIVATE_KEY_3 ? [process.env.PRIVATE_KEY_1, process.env.PRIVATE_KEY_2, process.env.PRIVATE_KEY_3] : [],
 	},
 	// bsc testnet
 	// bscTestnet: {
