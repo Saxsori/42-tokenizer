@@ -21,6 +21,10 @@ contract MultiSigWallet {
         _;
     }
 
+	event Submission(uint256 indexed txId);
+	event Approval(uint256 indexed txId, address indexed owner);
+	event Execution(uint256 indexed txId);
+
     constructor(address[] memory _owners, uint256 _required) {
         // TODO: validate inputs (non-empty owners, required <= owners.length, required > 0)
 		require(_owners.length > 0, "owners cannot be empty");
@@ -56,6 +60,7 @@ contract MultiSigWallet {
             executed: false,
             approvalCount: 0
         }));
+		emit Submission(transactions.length - 1);
         return transactions.length - 1;
     }
 
@@ -74,6 +79,7 @@ contract MultiSigWallet {
 		approved[_txId][msg.sender] = true;
         // TODO: increment transactions[_txId].approvalCount
         transactions[_txId].approvalCount++;
+		emit Approval(_txId, msg.sender);
     }
 
     function executeTransaction(uint256 _txId) external {
@@ -95,5 +101,6 @@ contract MultiSigWallet {
         // TODO: call transactions[_txId].target with transactions[_txId].data, check it succeeded
 		(bool success, ) = transactions[_txId].target.call(transactions[_txId].data);
 		require(success, "transaction failed");
+		emit Execution(_txId);
     }
 }
